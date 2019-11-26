@@ -28,6 +28,7 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'fdrF4OIcoamwId9TRZ165h7epmxowmj-',
         ],
+        'auth' => ['class'=>\app\components\AuthComponent::class],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -81,6 +82,7 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['*'],
     ];
 }
 
