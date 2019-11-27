@@ -24,19 +24,22 @@ class AuthController extends \yii\web\Controller
         $model=new Users();
 
         if(\Yii::$app->request->isPost){
+            // заполняем массив после обработки формы запроса
             $model->load(\Yii::$app->request->post());
 
-            // где-то здесь ошибка авторизации
+            // проверка содержимого массива $model
+                // echo 'pre';
+                // var_dump ($model);
+                // echo '/pre';
+                // exit;
 
+            // проверка на наличие e-mail в базе данных
             if($this->auth->signUp($model)){
-                // var_dump ($model); exit;
+                // если уже есть - переходим на форму Входа в систему
                 return $this->redirect(['/auth/sign-in']);
             }
-            else {
-                // var_dump ($this->auth);
-            }
         }
-        // var_dump ($model->email); exit;
+        // переходим на форму входа в систему, после Регитстрации (и записи в БД)
         return $this->render('sign-in',['model'=>$model]);
     }
 

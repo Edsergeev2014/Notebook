@@ -14,14 +14,16 @@ class AuthComponent extends BaseComponent
 
     public function signUp(Users $model): bool
     {
-        if($model->validate(['email','password'])){
+        // проверка e-mail и пароля на валидацию
+        if(!$model->validate(['email','password'])){
             return false;
         }
         
+        // генерация Hash-пароля
         $model->passwordHash=$this->genPasswordHash($model->password);
         // \Yii::$app->security->generateRandomSring();
 
-
+        // запись в базу данных
         if($model->save()){
             return true;
         }
