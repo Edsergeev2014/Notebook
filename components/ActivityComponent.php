@@ -14,16 +14,26 @@ class ActivityComponent extends BaseComponent
     public function createActivity(Activity $activity)
     {
         $activity->file = UploadedFile::getInstance($activity, 'file');
-        
+        $activity->userId=\Yii::$app->user->getIdentity()->id;
+
         if ($activity->validate()) {
+            
+            // проверка наличия файла и сохранение
             if ($activity->file) {
+
                 $activity->file = \Yii::$app->fileSaver->saveFile($activity->file);
                 if (!$activity->file) {
                     return false;
+                }else{
+                    $activity->files=null;
                 }
             }
-            return true;
+            if($activity->save(false)){
+                return true;
+            }
+            return false;
         }
+        
         return false;
     }
 }

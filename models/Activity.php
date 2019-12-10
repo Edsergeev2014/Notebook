@@ -7,14 +7,14 @@ namespace app\models;
 use app\base\BaseModel;
 use app\models\rules\BlackListRule;
 
-class Activity extends BaseModel
+class Activity extends ActivityBase
 {
-    public $title;
+    // public $title;
     public $author;
-    public $description;
+    // public $description;
     public $date;
     public $time;
-    public $isBlocked;
+    // public $isBlocked;
     public $isRepeat;
     public $repeatType;
 
@@ -44,7 +44,7 @@ class Activity extends BaseModel
 
     public function rules()
     {
-        return [
+        return array_merge([
             ['title', 'trim'],
 //            ['description','defaultValue'=>''],
             [['title', 'date', 'description', 'author'], 'required'],
@@ -62,7 +62,7 @@ class Activity extends BaseModel
             ['repeatEmail', 'compare', 'compareAttribute' => 'email'],
 //            ['title','match','pattern' => '/[a-z]{1,0}/iu'],
             ['file', 'file', 'extensions' => ['jpg', 'png', 'gif']] ,
-        ];
+        ],parent::rules());
     }
 
 //    public function validBlackList($attribute){

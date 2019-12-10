@@ -13,6 +13,10 @@ class CreateAction extends BaseAction
 {
     //public $name;
     public function run() {
+
+        if(!\Yii::$app->rbac->canCreateActivity()){
+            throw new HttpException(403, 'Not Authorized Action');
+        }
         $model = new Activity();
         if (\Yii::$app->request->isPost){
             $model->load(\Yii::$app->request->post());
