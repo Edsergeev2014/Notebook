@@ -7,6 +7,7 @@ use app\base\BaseController;
 use app\controllers\actions\activity\CreateAction;
 use app\models\Activity;
 use yii\web\HttpException;
+use yii\helpers\Html;
 
 class ActivityController extends BaseController
 {
@@ -19,6 +20,10 @@ class ActivityController extends BaseController
 
     public function actionView2($id){
         $model=Activity::findOne($id);
+
+        // echo 'Содержимое строки Activity:<br/>';
+        // Html::tag('pre', print_r($model->title));
+        // exit;
 
         if(!\Yii::$app->rbac->canViewActivity($model)){
             throw new HttpException(403,'Not access to acvtivity');

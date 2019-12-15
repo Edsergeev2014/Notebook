@@ -12,7 +12,7 @@ class Activity extends ActivityBase
     // public $title;
     public $author;
     // public $description;
-    public $date;
+    // public $dateStart;
     public $time;
     // public $isBlocked;
     public $isRepeat;
@@ -32,10 +32,10 @@ class Activity extends ActivityBase
 
     public function beforeValidate()
     {
-        if (!empty($this->date)) {
-            $date = \DateTime::createFromFormat('d.m.Y', $this->date);
-            if ($date) {
-                $this->date = $date->format('Y-m-d');
+        if (!empty($this->dateStart)) {
+            $dateStart = \DateTime::createFromFormat('d.m.Y', $this->dateStart);
+            if ($dateStart) {
+                $this->dateStart = $dateStart->format('Y-m-d');
             }
         }
         return parent::beforeValidate();
@@ -47,9 +47,9 @@ class Activity extends ActivityBase
         return array_merge([
             ['title', 'trim'],
 //            ['description','defaultValue'=>''],
-            [['title', 'date', 'description', 'author'], 'required'],
-            [['title', 'date', 'time', 'author'], 'string'],
-            ['date', 'date', 'format' => 'php:Y-m-d'],
+            [['title', 'dateStart', 'description', 'author'], 'required'],
+            [['title', 'dateStart', 'time', 'author'], 'string'],
+            ['dateStart', 'date', 'format' => 'php:Y-m-d'],
             ['description', 'string', 'max' => 300, 'min' => 5],
             [['isBlocked', 'isRepeat', 'useNotification'], 'boolean'],
             ['email', 'email'],
@@ -78,7 +78,7 @@ class Activity extends ActivityBase
             'title' => 'Название события',
             'author' => 'Автор события',
             'description' => 'Описание',
-            'date' => 'Дата',
+            'dateStart' => 'Дата',
             'time' => 'Время',
             'isBlocked' => 'Блокировка события',
             'isRepeat' => 'Повторение события',
