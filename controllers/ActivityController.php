@@ -28,6 +28,10 @@ class ActivityController extends BaseController
     }
 
     public function actionView2($id){
+
+        if(empty($id)){
+            return $this->redirect(['/activity/index']);
+        }
         $model=Activity::findOne($id);
 
         // echo 'Содержимое строки Activity:<br/>';
