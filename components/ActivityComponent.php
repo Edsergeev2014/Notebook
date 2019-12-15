@@ -17,7 +17,7 @@ class ActivityComponent extends BaseComponent
         $activity->file = UploadedFile::getInstance($activity, 'file');
         $activity->userId=\Yii::$app->user->getIdentity()->id;
 
-        var_dump($activity->getAttributes());
+        // var_dump($activity->getAttributes());
 
         // exit;
 

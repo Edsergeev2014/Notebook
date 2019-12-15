@@ -5,16 +5,7 @@
 
 <div class='row'>
     <div class='col-md-6'>
-        <h3>Авторизация</h3>
-        <?php $form=\yii\bootstrap\ActiveForm::begin(); ?>
-        <?=$form->field($model, 'email'); ?>
-        <?=$form->field($model, 'password')->passwordInput(); ?>
-        <div class='form-group'>
-            <button type='submit' class='btn btn-default'>Авторизация</button>
-        </div>
-
-        <?php \yii\bootstrap\ActiveForm::end(); ?>
-
+        <?=\app\widgets\AuthForm\AuthFormWidget::widget(['title'=>'Аутентификация:','model'=>$model])?>
     </div>
 </div>
 <br/>

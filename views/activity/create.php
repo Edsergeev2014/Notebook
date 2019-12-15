@@ -27,6 +27,5 @@
 
         <button type="submit" class="btn-default">Save</button>
         <?php \yii\bootstrap\ActiveForm::end(); ?>
-        <?= $model->title ?>
     </div>
 </div>
