@@ -5,6 +5,7 @@ namespace app\models;
 
 
 use app\base\BaseModel;
+use app\behaviors\DateCreatedBehavior;
 use app\models\rules\BlackListRule;
 
 class Activity extends ActivityBase
@@ -29,6 +30,14 @@ class Activity extends ActivityBase
     public $file;
 
     public $useNotification;
+
+    public function behaviors()
+    {
+        return [
+            'class'=>DateCreatedBehavior::class, 'attributeName' => 'createAt'
+        ];       
+    }
+
 
     public function beforeValidate()
     {
