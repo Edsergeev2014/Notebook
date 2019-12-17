@@ -3,6 +3,9 @@
 /* @var $this \yii\web\View */
 /* @var $model \app\models\ActivitySearch */
 /* @var $provider \yii\data\ActiveDataProvider */
+/* @var $model \app\models\Activity */
+
+
 
 use yii\grid\GridView;
 
@@ -25,11 +28,16 @@ use yii\grid\GridView;
                 ],
                 'dateStart',
                 'userId',
-                'createAt',
                 [
                     'attribute' => 'user.email'
+                ],
+                [
+                    'attribute' => 'createAt',
+                    'value' => function(\app\models\Activity $model){
+                        $model->attachBehavior('dc',['class'=>DateCreateBehavior::class,'attributeName'=> 'createAt'])
+                        return $model->getDateCreated();
+                    }
                 ]
-
             ]
         ]); 
         ?>
