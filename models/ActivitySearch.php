@@ -1,8 +1,10 @@
 <?php
 
 namespace app\models;
+
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
+use app\models\Activity;
 
 class ActivitySearch extends Activity
 {
@@ -11,7 +13,6 @@ class ActivitySearch extends Activity
         $query = Activity::find();
 
         $this->load($params);
-
 
         $provider = new ActiveDataProvider(
             [   'query' => $query,

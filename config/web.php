@@ -1,5 +1,7 @@
 <?php
 
+use app\behaviors\LogBehavior;
+
 $params = require __DIR__ . '/params.php';
 // $db = require __DIR__ . '/db.php';
 $db = file_exists(__DIR__ . '/db_local.php')?
@@ -18,6 +20,7 @@ $config = [
         // /Applications/MAMP/htdocs/notebook/web/files/
         '@filesWeb'=>'/files/',
     ],
+    'as logs' => ['class' => \app\behaviors\LogBehavior::class],
     'language'=>'ru_RU',
     'components' => [
         'activity'=>['class'=>\app\components\ActivityComponent::class],
@@ -27,6 +30,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'fdrF4OIcoamwId9TRZ165h7epmxowmj-',
+            'as logs' => ['class' => \app\behaviors\LogBehavior::class]
         ],
         'rbac'=>['class'=>\app\components\RbacComponent::class],
         'authManager' => [

@@ -6,6 +6,7 @@ namespace app\models;
 
 use app\base\BaseModel;
 use app\behaviors\DateCreatedBehavior;
+use app\behaviors\LogBehavior;
 use app\models\rules\BlackListRule;
 
 class Activity extends ActivityBase
@@ -34,7 +35,9 @@ class Activity extends ActivityBase
     public function behaviors()
     {
         return [
-            'class'=>DateCreatedBehavior::class, 'attributeName' => 'createAt'
+            ['class'=>DateCreatedBehavior::class, 'attributeName' => 'createAt'],
+            ['class'=>DateCreatedBehavior::class, 'attributeName' => 'createAt'],
+            LogBehavior::class
         ];       
     }
 
@@ -57,8 +60,8 @@ class Activity extends ActivityBase
             ['title', 'trim'],
 //            ['description','defaultValue'=>''],
             [['title', 'dateStart', 'description', 'author'], 'required'],
-            [['title', 'dateStart', 'time', 'author'], 'string'],
-            ['dateStart', 'date', 'format' => 'php:Y-m-d'],
+            [['title', 'dateStart', 'createAt', 'time', 'author'], 'string'],
+            ['dateStart', 'createAt', 'date', 'format' => 'php:Y-m-d'],
             ['description', 'string', 'max' => 300, 'min' => 5],
             [['isBlocked', 'isRepeat', 'useNotification'], 'boolean'],
             ['email', 'email'],

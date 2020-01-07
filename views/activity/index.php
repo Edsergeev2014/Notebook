@@ -8,13 +8,17 @@
 
 
 use yii\grid\GridView;
+use app\behaviors\DateCreatedBehavior;
+
+// print_r($provider);
+// exit;
 
 ?>
 <div class="row">
     <div class="col-md-12">
         <?= \yii\grid\GridView::widget([
             'dataProvider' => $provider,
-            'filterModel' => $model,
+            // 'filterModel' => $model,
             'columns' => [
                 ['class'=>\yii\grid\SerialColumn::class],
                 'id',
@@ -34,7 +38,8 @@ use yii\grid\GridView;
                 [
                     'attribute' => 'createAt',
                     'value' => function(\app\models\Activity $model){
-                        $model->attachBehavior('dc',['class'=>DateCreateBehavior::class,'attributeName'=> 'createAt'])
+                        $model->attachBehavior('dc',['class'=>\app\behaviors\DateCreatedBehavior::class,'attributeName'=> 'createAt']);
+                        // $model->detachBehavior('dc');
                         return $model->getDateCreated();
                     }
                 ]
