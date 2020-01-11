@@ -49,4 +49,11 @@ class ActivityComponent extends BaseComponent
         // exit;
         return false;
     }
+
+    public function findTodayNotifActivity()
+    {
+        return Activity::find()->andWhere('email is not null')
+        ->andWhere('dateStart>=:date',[':date'=>date('Y-m-d')])
+        ->andWhere('dateStart<=:date1',[':date1'=>date('Y-m-d').' 23:59:59'])->all();
+    }
 }

@@ -23,6 +23,7 @@ $config = [
         'authManager' => [
             'class' => 'yii\rbac\DbManager'
         ],    
+        'activity'=>['class'=>\app\components\ActivityComponent::class],
         'log' => [
             'targets' => [
                 [
@@ -30,6 +31,20 @@ $config = [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+
+            'useFileTransport' => false,
+            'enableSwiftMailerLogging' => true,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.yandex.ru',
+                'username' => 'ed.sergeev2016@yandex.ru',
+                'password' => 'a98731',
+                'port' => '587',
+                'encryption' => 'tls'
+            ]
         ],
         'db' => $db,
     ],
