@@ -12,8 +12,15 @@ use app\behaviors\DateCreatedBehavior;
 
 // print_r($provider);
 // exit;
-
 ?>
+
+
+
+<?php 
+// кэширование представления виджета (продолжительность - 20 сек.)
+// if ($this->beginCache('view1',['duration'=>20])):
+?>
+
 <div class="row">
     <div class="col-md-12">
         <?= \yii\grid\GridView::widget([
@@ -48,3 +55,8 @@ use app\behaviors\DateCreatedBehavior;
         ?>
     </div>
 </div>
+
+<?php
+// Завершение блока кэширования
+// $this->endCache(); endif;
+?>

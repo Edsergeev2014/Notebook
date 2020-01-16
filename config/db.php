@@ -8,7 +8,8 @@ return [
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
-    //'enableSchemaCache' => true,
-    //'schemaCacheDuration' => 60,
-    //'schemaCache' => 'cache',
+    'enableSchemaCache' => true,
+    // время хранения данных в кэше (cек):
+    'schemaCacheDuration' => 60,
+    'schemaCache' => 'cache',
 ];

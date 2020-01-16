@@ -9,6 +9,7 @@ use app\models\Activity;
 use yii\web\HttpException;
 use yii\helpers\Html;
 use app\models\ActivitySearch;
+use yii\caching\MemCache;
 
 class ActivityController extends BaseController
 {
@@ -48,4 +49,12 @@ class ActivityController extends BaseController
 
         return $this->render('view2',['model'=>$model]);
     }
+
+    // Кэширование всей страницы:
+    // public function behaviors()
+    // {
+    //     return [
+    //         ['class'=>\yii\filters\PageCache::class,'only'=>['test'],'duration'=>10]
+    //     ];
+    // }
 }

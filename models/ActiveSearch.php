@@ -48,7 +48,11 @@ class ActiveSearch extends Activity
             'query' => $query,
         ]);
 
+        // с кэшированием на 10сек. подгружаемых данных из БД:
+        // $this->cache(10)->load($params);
+        // Без кэширования:
         $this->load($params);
+        
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
