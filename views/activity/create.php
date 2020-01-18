@@ -14,7 +14,7 @@
         <?= $form->field($model, 'title'); ?>
         <?= $form->field($model, 'author'); ?>
         <?= $form->field($model, 'description')->textarea(); ?>
-        <?= $form->field($model, 'date'); ?>
+        <?= $form->field($model, 'dateStart'); ?>
         <?= $form->field($model, 'time')->input('time'); ?>
         <?= $form->field($model, 'isBlocked')->checkbox(); ?>
         <?= $form->field($model, 'isRepeat')->checkbox(); ?>
@@ -27,6 +27,5 @@
 
         <button type="submit" class="btn-default">Save</button>
         <?php \yii\bootstrap\ActiveForm::end(); ?>
-        <?= $model->title ?>
     </div>
 </div>

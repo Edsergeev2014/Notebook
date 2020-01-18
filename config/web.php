@@ -1,7 +1,12 @@
 <?php
 
+use app\behaviors\LogBehavior;
+
 $params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
+// $db = require __DIR__ . '/db.php';
+$db = file_exists(__DIR__ . '/db_local.php')?
+    (require __DIR__ . '/db_local.php'):
+    (require __DIR__ . '/db.php');
 
 $config = [
     'id' => 'basic',
@@ -15,6 +20,7 @@ $config = [
         // /Applications/MAMP/htdocs/notebook/web/files/
         '@filesWeb'=>'/files/',
     ],
+    'as logs' => ['class' => \app\behaviors\LogBehavior::class],
     'language'=>'ru_RU',
     'components' => [
         'activity'=>['class'=>\app\components\ActivityComponent::class],
@@ -24,13 +30,24 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'fdrF4OIcoamwId9TRZ165h7epmxowmj-',
+            'parsers' => [
+                'application/json' => \yii\web\JsonParser::class
+            ],
+            'as logs' => ['class' => \app\behaviors\LogBehavior::class]
         ],
+        'rbac'=>['class'=>\app\components\RbacComponent::class],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager'
+        ],
+        'auth' => ['class'=>\app\components\AuthComponent::class],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\Users',
             'enableAutoLogin' => true,
+            // Отключаем считывание куки при авторизации через API
+            // 'enableSession' => false
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -57,6 +74,18 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'create'=>'activity/create',
+                'new'=>'activity/create',
+                // Url -  http://localhost:8888/notebook/web/event/view2/6
+                'GET event/view2/<id:\d+>'=>'activity/view2',
+                // Регулярное выражение с буквами - используем w
+                // 'event/view2/<id:\w+>'=>'activity/view2',
+                'event/<action>'=>'activity/<action>',
+                [
+                    'class'=>yii\rest\UrlRule::class,
+                    'controller'=>'activity-rest',
+                    'pluralize'=>false
+                    ]
             ],
         ],
         
@@ -78,6 +107,7 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['*'],
     ];
 }
 

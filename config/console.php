@@ -1,7 +1,10 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
+// $db = require __DIR__ . '/db.php';
+$db = file_exists(__DIR__ . '/db_local.php')?
+    (require __DIR__ . '/db_local.php'):
+    (require __DIR__ . '/db.php');
 
 $config = [
     'id' => 'basic-console',
@@ -17,6 +20,10 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager'
+        ],    
+        'activity'=>['class'=>\app\components\ActivityComponent::class],
         'log' => [
             'targets' => [
                 [
@@ -24,6 +31,20 @@ $config = [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+
+            'useFileTransport' => false,
+            'enableSwiftMailerLogging' => true,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.yandex.ru',
+                'username' => 'ed.sergeev2016@yandex.ru',
+                'password' => 'a98731',
+                'port' => '587',
+                'encryption' => 'tls'
+            ]
         ],
         'db' => $db,
     ],

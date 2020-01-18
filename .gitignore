@@ -1,1 +1,4 @@
 web/files/
+config/db_local.php
+.vscode/
+.php-files.json
