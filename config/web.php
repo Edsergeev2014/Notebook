@@ -46,6 +46,8 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\Users',
             'enableAutoLogin' => true,
+            // Отключаем считывание куки при авторизации через API
+            // 'enableSession' => false
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

@@ -8,6 +8,7 @@ use app\base\BaseModel;
 use app\behaviors\DateCreatedBehavior;
 use app\behaviors\LogBehavior;
 use app\models\rules\BlackListRule;
+use phpDocumentor\Reflection\DocBlock\Description;
 
 class Activity extends ActivityBase
 {
@@ -95,6 +96,34 @@ class Activity extends ActivityBase
             'isBlocked' => 'Блокировка события',
             'isRepeat' => 'Повторение события',
             'file' => 'Прикрепите файл',
+        ];
+    }
+    // выводим через API только те поля, которые хотим:
+    public function fields()
+    {
+        return [
+            'id',
+            'title',
+            'description',
+            'dateStart'=>function($model){
+                return \Yii::$app->formatter->asDate($model->dateStart,'d.m.Y');
+            },
+            // создаем свое поле:
+            'duration' => function() {
+                return 0;
+            },
+            'user'=>function($model){
+                return $model->user->email;
+            }    
+        ];
+    }
+    // Добавляем поля, которые вводятся по запросам API:
+    public function extraFields()
+    {
+        return [
+            'user'=>function($model){
+                return $model->user->email;
+            }    
         ];
     }
 }

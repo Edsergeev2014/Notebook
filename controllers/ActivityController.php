@@ -4,7 +4,11 @@
 namespace app\controllers;
 
 use app\base\BaseController;
+use app\controllers\actions\activity\IndexAction;
 use app\controllers\actions\activity\CreateAction;
+use app\controllers\actions\activity\ViewAction;
+use app\controllers\actions\activity\UpdateAction;
+use app\controllers\actions\activity\DeleteAction;
 use app\models\Activity;
 use yii\web\HttpException;
 use yii\helpers\Html;
@@ -13,10 +17,16 @@ use yii\caching\MemCache;
 
 class ActivityController extends BaseController
 {
+    // Запросы через API:
     public function actions()
     {
         return [
+            'index'=>['class'=>IndexAction::class],
             'create'=>['class'=>CreateAction::class],
+            'view'=>['class'=>ViewAction::class],
+            'update'=>['class'=>UpdateAction::class],
+            'delete'=>['class'=>DeleteAction::class],
+            'options'=>['class'=>'yii\rest\OptionsAction'],
         ];
     }
 

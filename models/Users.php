@@ -48,6 +48,7 @@ class Users extends UsersBase implements IdentityInterface
 
     public static function findIdentityByAccessToken($token, $type = null) {
 
+        return Users::find()->andWhere(['token'=>$token])->one();
     }
 
     public function getId() {
